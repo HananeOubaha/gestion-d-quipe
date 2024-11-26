@@ -26,7 +26,7 @@
   <div class="container mx-auto py-10">
     <!-- Cards Container with Stadium Background -->
     <div class="cards-container">
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-3 gap-20">
             <!-- Attaquants -->
              <!-- AG (Left Winger) Ailier gauche -->
              <div class="col-span-3 flex justify-around">
@@ -81,11 +81,6 @@
                   <p>CB</p>
               </div>
           </div>
-          <div id="gk" class="card flex items-center justify-center" onclick="openForm('GK')">
-              <div class="text-center">
-                  <p>GK</p>
-              </div>
-          </div>
           <div id="cb2" class="card flex items-center justify-center" onclick="openForm('CB2')">
               <div class="text-center">
                   <p>CB</p>
@@ -97,8 +92,23 @@
               </div>
           </div>
       </div>
+      <div class="col-span-3 flex justify-around">
+      <div id="gk" class="card flex items-center justify-center" onclick="openForm('GK')">
+        <div class="text-center">
+            <p>GK</p>
+        </div>
+    </div>
   </div>
 </div>
+</div>
+      <!-- div pour contenir les joueurs ajoutés -->
+<div id="player" class="flex flex-wrap justify-center gap-4">
+  <!-- les cartes des joueurs ajoutés -->
+  <!-- <div class="card flex items-center justify-center" onclick="openForm('RB')">
+    <div class="text-center">
+      <p>RB</p>
+    </div>
+  </div> -->
 </div>
 <!-- footer -->
 <footer class="bg-black px-4 md:px-10 py-4">
