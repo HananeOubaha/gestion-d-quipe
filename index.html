@@ -9,7 +9,7 @@
 
 </head>
 <body class="bg-gray-800 text-white">
-  <header class=" bg-black h-20 flex flex-col justify-center gap-14 sm:flex-row  items-center mb-6 space-y-4 sm:space-y-0 sm:space-x-4">
+  <header class=" bg-black  lg:h-20 flex flex-col justify-center gap-14 sm:flex-row  items-center mb-6 space-y-4 sm:space-y-0 sm:space-x-4">
       <img alt="Futbin logo" src="https://cdn.futbin.com/design/img/logos/futbin-green-small.png?v=5" class="round-corner-small" height="32px" width="32px">
       <ul>
         <li class="text-white font-bold flex flex-col sm:flex-row justify-between lg:gap-12  md:gap-6 sm:gap-4">
@@ -26,7 +26,30 @@
   <div class="container mx-auto py-10">
     <!-- Cards Container with Stadium Background -->
     <div class="cards-container">
-       
+        <div class="grid grid-cols-3 gap-4">
+            <!-- Attaquants -->
+             <!-- AG (Left Winger) Ailier gauche -->
+             <div class="col-span-3 flex justify-around">
+              <div id="AG" class="card flex items-center justify-center" onclick="openForm('LW')">
+                  <div class="text-center">
+                      <p>AG</p>
+                  </div>
+              </div>
+              <!-- ST (Striker) Attaquant central -->
+              <div id="AC" class="card flex items-center justify-center" onclick="openForm('ST')">
+                  <div class="text-center">
+                      <p>AC</p>
+                  </div>
+              </div>
+              <!-- RW (Right Winger) Ailier droit -->
+              <div id="AD" class="card flex items-center justify-center" onclick="openForm('RW')">
+                  <div class="text-center">
+                      <p>AD</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 <footer class="bg-black px-4 md:px-10 py-4">
