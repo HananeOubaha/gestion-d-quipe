@@ -114,7 +114,7 @@
 </div>
 
 <!-- pop up de formulaire des joueurs -->
-<div id="popup-ajout" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center py-24 hidde">
+<div id="popup-ajout" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center py-24 hiddn">
   <div class="bg-green-600 text-black font-semibold p-14 rounded-lg w-11/12 md:w-3/4 lg:w-1/2 max-h-full overflow-auto">
     <div class="flex justify-center">
     <h2 class="text-xl  font-medium mb-4 ">ajouter votre joueur</h2>
@@ -163,6 +163,10 @@
 <div class="mb-4">
     <label for="physical" class="block text-sm">Physical</label>
     <input type="number" id="physical" class="w-full border border-gray-300 p-2">
+</div>
+<div class="flex justify-end">
+  <button type="button" class="bg-orange-400 text-white py-2 px-4 rounded mr-2 hover:bg-black" onclick="closeForm()">Cancel</button>
+  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded hover:bg-black">Add Player</button>
 </div>
     </form>
   </div>
