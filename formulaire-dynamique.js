@@ -19,5 +19,26 @@ function openForm() {
     const dribbling = document.getElementById('dribbling').value;
     const defending = document.getElementById('defending').value;
     const physical = document.getElementById('physical').value;
-  }
+         
+    card.innerHtml = `
+    <div class ="caract-joueur">
+        <div class="badge">${rating}</div>
+        <img class="player-image" src="${picture}" alt="Player">
+        <p class="name">${name}</p>
+        <div class="statistiques">
+        <p>${pace}</p>
+        <p>${shooting}</p>
+        <p>${passing}</p>
+        <p>${dribbling}</p>
+        <p>${defending}</p>
+        <p>${physical}</p>
+         <img class="club" src="${club}" alt="club">
+        <img class="nationality" src="${nationality}" alt="Nationality">
+        </div>
+        </div>
+    `;
+    document.getElementById(`player`).appendChild(card);
+  closeForm();
+ }
+
   
