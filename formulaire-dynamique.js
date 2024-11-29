@@ -4,7 +4,7 @@ const playerModal = document.getElementById("player-modal");
 const cancelBtn = document.getElementById("cancel-btn");
 const playerForm = document.getElementById("player-form");
 const cardsContainer = document.getElementById("cards-container");
-
+const position = document.getElementById('position').value;
 // Ouvrir le modal
 addPlayerBtn.addEventListener("click", () => {
     playerModal.classList.remove("hidden");
@@ -39,7 +39,7 @@ playerForm.addEventListener("submit", (e) => {
 
     card.innerHTML = `
           <div class="absolute top-3 left-3 text-black font-bold text-xl">${rating}</div>
-           <div class="absolute top-3 right-3 text-black font-bold text-lg">CF</div>
+           <div class="absolute top-3 right-3 text-black font-bold text-lg">${position}</div>
            <img src=${image}alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
            <div class="text-black font-bold text-sm mt-4">${name}</div>
             <div class="flex  gap-x-1 mt-4 text-black text-sm font-bold">

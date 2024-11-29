@@ -109,7 +109,7 @@
        <div id="player-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-green-600 rounded-lg p-6 w-96">
             <h2 class="text-xl font-bold mb-4 text-center">Ajouter un joueur</h2>
-            <form id="player-form">
+            <form id="player-form" class="text-black">
                 <!-- Champs du formulaire -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium">Nom du joueur</label>
@@ -143,6 +143,21 @@
                         required
                     />
                 </div>
+                <label for="position">position:</label>
+                <select id="position" class="w-full p-2 mt-2 border border-green-800 text-black" required>
+                    <option value="" disabled selected>Select a position</option>
+                    <option value="lw">LW</option>
+                    <option value="st">ST</option>
+                    <option value="rw">RW</option>
+                    <option value="cm1">CM</option>
+                    <option value="cam">CAM</option>
+                    <option value="cm2">CM</option>
+                    <option value="lb">LB</option>
+                    <option value="cb1">CB</option>
+                    <option value="cb2">CB</option>
+                    <option value="rb">RB</option>
+                    <option value="gk">GK</option>
+                </select>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium">Club</label>
