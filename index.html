@@ -24,10 +24,12 @@
       <button class="bg-green-900 text-white px-4 py-2 rounded hover:bg-green-300 font-semibold">sign up</button>
   </header>
 
- <div class="flex justify-center"><button onclick="openForm()" class=" bg-green-600 text-white px-4 py-2 rounded hover:bg-black ">ajouté un joueur+</button></div>
+    <div class="flex justify-center">
+        <button id="add-player-btn" class=" bg-green-600 text-white px-4 py-2 rounded hover:bg-black ">ajouté un joueur+</button>
+    </div>
   <div class="container mx-auto py-10">
     <!-- Cards Container with Stadium Background -->
-    <div class="cards-container">
+    <div class="stadium">
         <div class="grid grid-cols-3 gap-20">
             <!-- Attaquants -->
              <!-- AG (Left Winger) Ailier gauche -->
@@ -103,110 +105,196 @@
   </div>
 </div>
 </div>
-      <!-- div pour contenir les joueurs ajoutés -->
-<div id="player" class="flex flex-wrap justify-center gap-4">
-  <!-- les cartes des joueurs ajoutés -->
-  <!-- <div class="card flex items-center justify-center" onclick="openForm('RB')">
-    <div class="text-center">
-      <p>RB</p>
+       <!-- modal -->
+       <div id="player-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-green-600 rounded-lg p-6 w-96">
+            <h2 class="text-xl font-bold mb-4 text-center">Ajouter un joueur</h2>
+            <form id="player-form">
+                <!-- Champs du formulaire -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium">Nom du joueur</label>
+                    <input
+                        type="text"
+                        id="player-name"
+                        class="w-full border-black rounded p-2"
+                        placeholder="Lionel Messi"
+                        required
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium">Nationalité</label>
+                    <input
+                        type="text"
+                        id="player-nationality"
+                        class="w-full border-black rounded p-2"
+                        placeholder="Argentina"
+                        required
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium">URL de l'image</label>
+                    <input
+                        type="text"
+                        id="player-image"
+                        class="w-full border-black rounded p-2"
+                        placeholder="https://exemple.com/image.png"
+                        required
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium">Club</label>
+                    <input
+                        type="text"
+                        id="player-club"
+                        class="w-full border-black rounded p-2"
+                        placeholder="Inter Miami"
+                        required
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium">Rating</label>
+                    <input
+                        type="number"
+                        id="player-rating"
+                        class="w-full border-black rounded p-2"
+                        placeholder="93"
+                        required
+                    />
+                </div>
+
+                <!-- Champs pour les statistiques -->
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium">Pace</label>
+                        <input
+                            type="number"
+                            id="player-pace"
+                            class="border-black rounded p-2 w-full"
+                            placeholder="85"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Shooting</label>
+                        <input
+                            type="number"
+                            id="player-shooting"
+                            class="border-black rounded p-2 w-full"
+                            placeholder="92"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Passing</label>
+                        <input
+                            type="number"
+                            id="player-passing"
+                            class="border-black rounded p-2 w-full"
+                            placeholder="91"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Dribbling</label>
+                        <input
+                            type="number"
+                            id="player-dribbling"
+                            class="border-black rounded p-2 w-full"
+                            placeholder="95"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Defending</label>
+                        <input
+                            type="number"
+                            id="player-defending"
+                            class="border-black rounded p-2 w-full"
+                            placeholder="35"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Physical</label>
+                        <input
+                            type="number"
+                            id="player-physical"
+                            class="border-black rounded p-2 w-full"
+                            placeholder="65"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <!-- Boutons -->
+                <div class="flex justify-between">
+                    <button
+                        type="button"
+                        id="cancel-btn"
+                        class="bg-gray-400 text-black py-2 px-4 rounded hover:bg-gray-500"
+                    >
+                        Annuler
+                    </button>
+                    <button
+                        type="submit"
+                        class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500"
+                    >
+                        Ajouter
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div> -->
+
+    <!-- Conteneur pour les cartes -->
+    <div id="cards-container"class="grid grid-cols-5  w-full justify-center items-center mt-6">
+        <!-- Les cartes ajoutées apparaîtront ici -->
+        <div class=" card rounded-lg shadow-lg p-4 flex flex-col items-center relative">
+         <!-- Note (Rating) -->
+        <div class="absolute top-3 left-3 text-black font-bold text-xl">20</div>
+        <!-- Position -->
+        <div class="absolute top-3 right-3 text-black font-bold text-lg">CF</div>
+
+        <!-- Image principale -->
+        <img
+            src="https://cdn.sofifa.net/players/190/871/25_120.png"
+            alt="${playerName}"
+            class="w-24 h-24 rounded-full border-2 border-white mt-10"
+        />
+
+        <!-- Nom -->
+        <div class="text-black font-bold text-sm mt-4">Hanane</div>
+        <!-- Statistiques -->
+        <div class="flex  gap-x-1 mt-4 text-black text-sm font-bold">
+            <div>PAC <span class="font-normal">10</span></div>
+            <div>SHO <span class="font-normal">20</span></div>
+            <div>PAS <span class="font-normal">30</span></div>
+            <div>DRI <span class="font-normal">40</span></div>
+            <div>DEF <span class="font-normal">50</span></div>
+            <div>PHY <span class="font-normal">60</span></div>
+        </div>
+        <!-- Nationalité + Club -->
+        <div class="flex justify-center items-center space-x-2 mt-2">
+            <!-- Nationalité -->
+            <img
+                src="https://cdn.sofifa.net/flags/br.png"
+                alt="Nationalité"
+                class="w-6 h-6 rounded-full"
+            />
+            <!-- Club -->
+            <img
+                src="https://cdn.sofifa.net/meta/team/7011/120.png"
+                alt="Club"
+                class="w-6 h-6 rounded-full"
+            />
+        </div>
+    </div>
+    </div>
 </div>
 
-<!-- pop up de formulaire des joueurs -->
-<div id="popup-ajout" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center py-24 hidden">
-  <div class="bg-green-600 text-black font-semibold p-14 rounded-lg w-11/12 md:w-3/4 lg:w-1/2 max-h-full overflow-auto">
-    <div class="flex justify-center">
-    <h2 class="text-xl  font-medium mb-4 ">ajouter votre joueur</h2>
-    </div>
-    <form id="playerForm">
-      <div class="mb-4">
-        <label for="name" class="block text-sm ">nom joueur</label>
-        <input type="text" id="name" class="w-full border border-gray-300 p-2">
-    </div>
-    <div class="mb-4">
-      <label for="picture" class="block text-sm">Player Picture URL</label>
-      <input type="text" id="picture" class="w-full border border-gray-300 p-2">
-  </div>
-  <div class="mb-4">
-    <label for="nationality" class="block text-sm">Nationality</label>
-    <input type="text" id="nationality" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="club" class="block text-sm">Club</label>
-    <input type="text" id="club" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="rating" class="block text-sm">Rating</label>
-    <input type="number" id="rating" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="pace" class="block text-sm">Pace</label>
-    <input type="number" id="pace" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="shooting" class="block text-sm">Shooting</label>
-    <input type="number" id="shooting" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="passing" class="block text-sm">Passing</label>
-    <input type="number" id="passing" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="dribbling" class="block text-sm">Dribbling</label>
-    <input type="number" id="dribbling" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="defending" class="block text-sm">Defending</label>
-    <input type="number" id="defending" class="w-full border border-gray-300 p-2">
-</div>
-<div class="mb-4">
-    <label for="physical" class="block text-sm">Physical</label>
-    <input type="number" id="physical" class="w-full border border-gray-300 p-2">
-</div>
-<div class="flex justify-end">
-  <button type="button" class="bg-orange-400 text-white py-2 px-4 rounded mr-2 hover:bg-black" onclick="closeForm()">Cancel</button>
-  <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded hover:bg-black">Add Player</button>
-</div>
-    </form>
-  </div>
-</div>
-
-<!-- footer -->
-<footer class="bg-black px-4 md:px-10 py-4">
-<div class="mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-gray-400 text-sm ">
-    <div class="flex  ">
-        <a href="#">
-            <img alt="Futbin logo" src="https://cdn.futbin.com/design/img/logos/futbin-green-small.png?v=5" class="round-corner-small" height="32px" width="32px">
-        </a>
-    </div>
-    <div class=" md:mt-8 md:ml-2 pt-8 md:pt-0">
-        <h3 class="text-green-300 font-bold  mb-4">FUTBIN APPLICATION</h3>
-        <p class="text-white  mb-4"><a href="#">FUTBIN For IOS</a></p>
-        <p class="text-white"><a href="#">FUTBIN For android</a></p>
-    </div>
-    <div class="md:mt-8 pl-5 md:pl-0 md:ml-5">
-        <h3 class="text-green-300 font-bold mb-4">UsefulLinks</h3>
-        <p class="text-white  mb-4"><a href="Squad builder.html">Squad builder</a></p>
-        <p class="text-white  mb-4"><a href="Marquet.html">Marquet</a></p>
-    </div>
-    <div class=" md:mt-8 ">
-        <h3 class="text-green-300 font-bold mb-4">Support</h3>
-        <p class="text-white  mb-4"><a href="#">Shipping</a></p>
-        <p class="text-white "><a href="#">Refund Policy</a></p>
-    </div>
-</div>
-<div id="socials-icons" class="flex justify-center gap-6 mt-8">
-    <a href="#"><img src="./img/Facebook.png" alt="Facebook" class="h-4 w-4 md:h-8 md:w-8"></a>
-    <a href="#"><img src="./img/Instagram.png" alt="Instagram" class="h-4 w-4 md:h-8 md:w-8"></a>
-    <a href="#"><img src="./img/Twitch.png" alt="Twitert" class="h-4 w-4 md:h-8 md:w-8"></a>
-    
-</div>
-<div class="flex justify-center mt-6">
-    <h3 class="text-white font-sans md:text-2xl text-center">© 2024 Codebenders. All rights
-        reserved | Oubaha Hanane's équipe</h3>
-</div>
-</footer>
-    <script src="formulaire-dynamique.js"></script>
+<script src="formulaire-dynamique.js"></script>
 </body>
-</html>
