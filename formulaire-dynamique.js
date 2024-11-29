@@ -66,10 +66,7 @@ card.addEventListener("click", () => handleCardClick(card));
     playerForm.reset();
     playerModal.classList.add("hidden");
 });
-
-//  Gérer le clic sur une carte de joueur
 function handleCardClick(card) {
-    // Afficher une liste déroulante des positions disponibles
     const positionSelector = document.createElement("select");
     positionSelector.className = "absolute bg-white text-black rounded p-2 mt-2";
 
@@ -80,23 +77,16 @@ function handleCardClick(card) {
         positionSelector.appendChild(option);
     });
 
-    // Ajouter le sélecteur à la carte
+    
     card.appendChild(positionSelector);
-
-    // Gérer la sélection d'une position
     positionSelector.addEventListener("change", () => {
         const newPosition = positionSelector.value;
         const targetPosition = document.getElementById(newPosition); // Trouver l'emplacement cible
 
         if (targetPosition) {
-            // Déplacer la carte vers la nouvelle position
-            targetPosition.innerHTML = ""; // Vider la position actuelle
+            targetPosition.innerHTML = ""; 
             targetPosition.appendChild(card);
-
-            // Mettre à jour la position de la carte
             card.dataset.position = newPosition;
-
-            // Retirer le sélecteur
             positionSelector.remove();
         }
     });
