@@ -22,7 +22,6 @@ playerForm.addEventListener("submit", (e) => {
     const name = document.getElementById("player-name").value;
     const nationality = document.getElementById("player-nationality").value;
     const image = document.getElementById("player-image").value;
-    const position = document.getElementById('Position').value;
     const club = document.getElementById("player-club").value;
     const rating = document.getElementById("player-rating").value;
     const pace = document.getElementById("player-pace").value;
@@ -39,7 +38,6 @@ playerForm.addEventListener("submit", (e) => {
 
     card.innerHTML = `
           <div class="absolute top-3 left-3 text-black font-bold text-xl">${rating}</div>
-           <div class="absolute top-3 right-3 text-black font-bold text-lg">${position}</div>
            <img src=${image}alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
            <div class="text-black font-bold text-sm mt-4">${name}</div>
             <div class="flex  gap-x-1 mt-4 text-black text-sm font-bold">
@@ -63,3 +61,4 @@ playerForm.addEventListener("submit", (e) => {
     playerForm.reset();
     playerModal.classList.add("hidden");
 });
+
