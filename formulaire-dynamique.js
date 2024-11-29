@@ -4,7 +4,6 @@ const playerModal = document.getElementById("player-modal");
 const cancelBtn = document.getElementById("cancel-btn");
 const playerForm = document.getElementById("player-form");
 const cardsContainer = document.getElementById("cards-container");
-const position = document.getElementById('position').value;
 // Ouvrir le modal
 addPlayerBtn.addEventListener("click", () => {
     playerModal.classList.remove("hidden");
@@ -23,6 +22,7 @@ playerForm.addEventListener("submit", (e) => {
     const name = document.getElementById("player-name").value;
     const nationality = document.getElementById("player-nationality").value;
     const image = document.getElementById("player-image").value;
+    const position = document.getElementById('Position').value;
     const club = document.getElementById("player-club").value;
     const rating = document.getElementById("player-rating").value;
     const pace = document.getElementById("player-pace").value;
