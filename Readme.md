@@ -26,6 +26,6 @@
 
 - **HTML5** : Structure de l'application.
 -  **Tailwind CSS** : Stylisation et design responsive.
-- **JavaScript Vanilla** : Interactions dynamiques, gestion du DOM et stockage des données via `localStorage`.
+- **JavaScript Vanilla** : Interactions dynamiques, gestion du DOM .
 
 ---
