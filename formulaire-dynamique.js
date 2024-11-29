@@ -4,6 +4,7 @@ const playerModal = document.getElementById("player-modal");
 const cancelBtn = document.getElementById("cancel-btn");
 const playerForm = document.getElementById("player-form");
 const cardsContainer = document.getElementById("cards-container");
+const positions = ["LW", "ST", "RW", "CM1", "CAM", "CM2", "LB", "CB1", "CB2", "RB", "GK"];
 // Ouvrir le modal
 addPlayerBtn.addEventListener("click", () => {
     playerModal.classList.remove("hidden");
@@ -22,6 +23,7 @@ playerForm.addEventListener("submit", (e) => {
     const name = document.getElementById("player-name").value;
     const nationality = document.getElementById("player-nationality").value;
     const image = document.getElementById("player-image").value;
+    const position = document.getElementById('Position').value;
     const club = document.getElementById("player-club").value;
     const rating = document.getElementById("player-rating").value;
     const pace = document.getElementById("player-pace").value;
@@ -38,6 +40,7 @@ playerForm.addEventListener("submit", (e) => {
 
     card.innerHTML = `
           <div class="absolute top-3 left-3 text-black font-bold text-xl">${rating}</div>
+           <div class="absolute top-3 right-3 text-black font-bold text-lg">${position}</div>
            <img src=${image}alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
            <div class="text-black font-bold text-sm mt-4">${name}</div>
             <div class="flex  gap-x-1 mt-4 text-black text-sm font-bold">
@@ -53,6 +56,8 @@ playerForm.addEventListener("submit", (e) => {
               <img src=${club}alt="Club"class="w-6 h-6 rounded-full"/>
             </div>
     `;
+// Ajouter un gestionnaire d'événement au clic sur la carte
+card.addEventListener("click", () => handleCardClick(card));
 
     // Ajouter la carte au conteneur
     cardsContainer.appendChild(card);
@@ -62,3 +67,37 @@ playerForm.addEventListener("submit", (e) => {
     playerModal.classList.add("hidden");
 });
 
+//  Gérer le clic sur une carte de joueur
+function handleCardClick(card) {
+    // Afficher une liste déroulante des positions disponibles
+    const positionSelector = document.createElement("select");
+    positionSelector.className = "absolute bg-white text-black rounded p-2 mt-2";
+
+    positions.forEach(pos => {
+        const option = document.createElement("option");
+        option.value = pos;
+        option.textContent = pos;
+        positionSelector.appendChild(option);
+    });
+
+    // Ajouter le sélecteur à la carte
+    card.appendChild(positionSelector);
+
+    // Gérer la sélection d'une position
+    positionSelector.addEventListener("change", () => {
+        const newPosition = positionSelector.value;
+        const targetPosition = document.getElementById(newPosition); // Trouver l'emplacement cible
+
+        if (targetPosition) {
+            // Déplacer la carte vers la nouvelle position
+            targetPosition.innerHTML = ""; // Vider la position actuelle
+            targetPosition.appendChild(card);
+
+            // Mettre à jour la position de la carte
+            card.dataset.position = newPosition;
+
+            // Retirer le sélecteur
+            positionSelector.remove();
+        }
+    });
+}
