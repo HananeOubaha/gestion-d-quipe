@@ -4,7 +4,8 @@ const playerModal = document.getElementById("player-modal");
 const cancelBtn = document.getElementById("cancel-btn");
 const playerForm = document.getElementById("player-form");
 const cardsContainer = document.getElementById("cards-container");
-const positions = ["LW", "ST", "RW", "CM1", "CAM", "CM2", "LB", "CB1", "CB2", "RB", "GK"];
+
+
 // Ouvrir le modal
 addPlayerBtn.addEventListener("click", () => {
     playerModal.classList.remove("hidden");
@@ -36,14 +37,14 @@ playerForm.addEventListener("submit", (e) => {
     // Créer une nouvelle carte
     const card = document.createElement("div");
     card.className =
-        "card rounded-lg shadow-lg p-4 flex flex-col items-center relative";
-
+        "card rounded-lg shadow-lg p-4 flex flex-col items-center relative cursor-pointer";
+    card.dataset.position = position; 
     card.innerHTML = `
           <div class="absolute top-3 left-3 text-black font-bold text-xl">${rating}</div>
            <div class="absolute top-3 right-3 text-black font-bold text-lg">${position}</div>
-           <img src=${image}alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
+           <img src=${image} alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
            <div class="text-black font-bold text-sm mt-4">${name}</div>
-            <div class="flex  gap-x-1 mt-4 text-black text-sm font-bold">
+            <div class="flex gap-x-1 mt-4 text-black text-sm font-bold">
             <div>PAC <span class="font-normal">${pace}</span></div>
             <div>SHO <span class="font-normal">${shooting}</span></div>
             <div>PAS <span class="font-normal">${passing}</span></div>
@@ -52,42 +53,52 @@ playerForm.addEventListener("submit", (e) => {
             <div>PHY <span class="font-normal">${physical}</span></div>
            </div>
            <div class="flex justify-center items-center space-x-2 mt-2">
-               <img src=${nationality}alt="Nationalité" class="w-6 h-6 rounded-full"/>
-              <img src=${club}alt="Club"class="w-6 h-6 rounded-full"/>
+               <img src=${nationality} alt="Nationalité" class="w-6 h-6 rounded-full"/>
+               <img src=${club} alt="Club" class="w-6 h-6 rounded-full"/>
             </div>
     `;
-// Ajouter un gestionnaire d'événement au clic sur la carte
-card.addEventListener("click", () => handleCardClick(card));
-
-    // Ajouter la carte au conteneur
+    card.addEventListener("click", () => handleCardClick(card));
     cardsContainer.appendChild(card);
-
-    // Réinitialiser et fermer le modal
     playerForm.reset();
     playerModal.classList.add("hidden");
 });
+
 function handleCardClick(card) {
-    const positionSelector = document.createElement("select");
-    positionSelector.className = "absolute bg-white text-black rounded p-2 mt-2";
-
-    positions.forEach(pos => {
-        const option = document.createElement("option");
-        option.value = pos;
-        option.textContent = pos;
-        positionSelector.appendChild(option);
-    });
-
-    
-    card.appendChild(positionSelector);
-    positionSelector.addEventListener("change", () => {
-        const newPosition = positionSelector.value;
-        const targetPosition = document.getElementById(newPosition); // Trouver l'emplacement cible
+    if (card.querySelector(".action-container")) return;
+    const actionContainer = document.createElement("div");
+    actionContainer.className = "action-container absolute bg-white text-black rounded p-2 mt-2 shadow-lg flex gap-2";
+    const activateButton = document.createElement("button");
+    activateButton.textContent = "Activer";
+    activateButton.className = "bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600";
+    const deactivateButton = document.createElement("button");
+    deactivateButton.textContent = "Désactiver";
+    deactivateButton.className = "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600";
+    actionContainer.appendChild(activateButton);
+    actionContainer.appendChild(deactivateButton);
+    card.appendChild(actionContainer);
+    activateButton.addEventListener("click", () => {
+        const playerPosition = card.dataset.position; 
+        const targetPosition = document.getElementById(playerPosition); 
 
         if (targetPosition) {
             targetPosition.innerHTML = ""; 
             targetPosition.appendChild(card);
-            card.dataset.position = newPosition;
-            positionSelector.remove();
+            actionContainer.remove();
+        } else {
+            alert("Position non trouvée sur le terrain !");
         }
     });
+
+    deactivateButton.addEventListener("click", () => {
+        actionContainer.remove();
+    });
+    document.addEventListener(
+        "click",
+        (e) => {
+            if (!card.contains(e.target)) {
+                actionContainer.remove();
+            }
+        },
+        { once: true }
+    );
 }
