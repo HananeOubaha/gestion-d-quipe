@@ -90,8 +90,10 @@ function handleCardClick(card) {
     });
 
     deactivateButton.addEventListener("click", () => {
+        cardsContainer.appendChild(card);
         actionContainer.remove();
     });
+
     document.addEventListener(
         "click",
         (e) => {
