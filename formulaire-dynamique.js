@@ -56,7 +56,12 @@ playerForm.addEventListener("submit", (e) => {
                <img src=${nationality} alt="Nationalité" class="w-6 h-6 rounded-full"/>
                <img src=${club} alt="Club" class="w-6 h-6 rounded-full"/>
             </div>
+            <button class="delete-btn absolute top-0 left-1/2 transform -translate-x-1/2 p-2 bg-red-500 text-white rounded-full">X</button>
     `;
+    const deleteButton = card.querySelector(".delete-btn");
+    deleteButton.addEventListener("click", () => { 
+        card.remove(); 
+    });
     card.addEventListener("click", () => handleCardClick(card));
     cardsContainer.appendChild(card);
     playerForm.reset();
