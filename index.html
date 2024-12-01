@@ -34,19 +34,19 @@
             <!-- Attaquants -->
              <!-- AG (Left Winger) Ailier gauche -->
              <div class="col-span-3 flex justify-around">
-              <div id="LW" class="card flex items-center justify-center" onclick="openForm('LW')">
+              <div id="LW" class="card flex items-center justify-center" >
                   <div class="text-center">
                       <p>LW</p>
                   </div>
               </div>
               <!-- ST (Striker) Attaquant central -->
-              <div id="ST" class="card flex items-center justify-center" onclick="openForm('ST')">
+              <div id="ST" class="card flex items-center justify-center" >
                   <div class="text-center">
                       <p>ST</p>
                   </div>
               </div>
               <!-- RW (Right Winger) Ailier droit -->
-              <div id="RW" class="card flex items-center justify-center" onclick="openForm('RD')">
+              <div id="RW" class="card flex items-center justify-center" >
                   <div class="text-center">
                       <p>RW</p>
                   </div>
@@ -55,19 +55,19 @@
           <!-- Milieux de terrain -->
           <div class="col-span-3 flex justify-around">
             <!-- CM1 Milieu central 1 -->
-            <div id="CM1" class="card flex items-center justify-center" onclick="openForm('CM1')">
+            <div id="CM1" class="card flex items-center justify-center" >
                 <div class="text-center">
                     <p>CM1</p>
                 </div>
             </div>
             <!-- Central Attacking Midfielder  Milieu offensif central -->
-            <div id="CAM" class="card flex items-center justify-center" onclick="openForm('CAM')">
+            <div id="CAM" class="card flex items-center justify-center" >
                 <div class="text-center">
                     <p>CAM</p>
                 </div>
             </div>
             <!-- CM1 Milieu central 1 -->
-            <div id="CM2" class="card flex items-center justify-center" onclick="openForm('CM2')">
+            <div id="CM2" class="card flex items-center justify-center" >
                 <div class="text-center">
                     <p>CM2</p>
                 </div>
@@ -75,29 +75,29 @@
         </div>
         <!-- défenseurs  -->
         <div class="col-span-3 flex justify-around">
-          <div id="LB" class="card flex items-center justify-center" onclick="openForm('LB')">
+          <div id="LB" class="card flex items-center justify-center" >
               <div class="text-center">
                   <p>LB</p>
               </div>
           </div>
-          <div id="CB1" class="card flex items-center justify-center" onclick="openForm('CB1')">
+          <div id="CB1" class="card flex items-center justify-center" >
               <div class="text-center">
                   <p>CB1</p>
               </div>
           </div>
-          <div id="CB2" class="card flex items-center justify-center" onclick="openForm('CB2')">
+          <div id="CB2" class="card flex items-center justify-center" >
               <div class="text-center">
                   <p>CB2</p>
               </div>
           </div>
-          <div id="RB" class="card flex items-center justify-center" onclick="openForm('RB')">
+          <div id="RB" class="card flex items-center justify-center" >
               <div class="text-center">
                   <p>RB</p>
               </div>
           </div>
       </div>
       <div class="col-span-3 flex justify-around">
-      <div id="GK" class="card flex items-center justify-center" onclick="openForm('GK')">
+      <div id="GK" class="card flex items-center justify-center" >
         <div class="text-center">
             <p>GK</p>
         </div>
@@ -113,38 +113,20 @@
                 <!-- Champs du formulaire -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium">Nom du joueur</label>
-                    <input
-                        type="text"
-                        id="player-name"
-                        class="w-full border-black rounded p-2"
-                        placeholder="Lionel Messi"
-                        required
-                    />
+                    <input type="text" id="player-name" class="w-full border-black rounded p-2" placeholder="Lionel Messi" />
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium">Nationalité</label>
-                    <input
-                        type="text"
-                        id="player-nationality"
-                        class="w-full border-black rounded p-2"
-                        placeholder="Argentina"
-                        required
-                    />
+                    <input type="text" id="player-nationality" class="w-full border-black rounded p-2" placeholder="Argentina" />
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium">URL de l'image</label>
-                    <input
-                        type="text"
-                        id="player-image"
-                        class="w-full border-black rounded p-2"
-                        placeholder="https://exemple.com/image.png"
-                        required
-                    />
+                    <input type="text" id="player-image" class="w-full border-black rounded p-2" placeholder="https://exemple.com/image.png"/>
                 </div>
                 <label for="position">Position:</label>
-                <select id="Position" class="w-full p-2 mt-2 border border-green-800 text-black" required>
+                <select id="Position" class="w-full p-2 mt-2 border border-green-800 text-black">
                     <option value="" disabled selected>Select a position</option>
                     <option value="LW">LW</option>
                     <option value="ST">ST</option>
@@ -161,24 +143,12 @@
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium">Club</label>
-                    <input
-                        type="text"
-                        id="player-club"
-                        class="w-full border-black rounded p-2"
-                        placeholder="Inter Miami"
-                        required
-                    />
+                    <input type="text" id="player-club" class="w-full border-black rounded p-2" placeholder="Inter Miami"/>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium">Rating</label>
-                    <input
-                        type="number"
-                        id="player-rating"
-                        class="w-full border-black rounded p-2"
-                        placeholder="93"
-                        required
-                    />
+                    <input type="number" id="player-rating" class="w-full border-black rounded p-2" placeholder="93"/>
                 </div>
 
                 <!-- Champs pour les statistiques -->
@@ -187,17 +157,8 @@
 
                 <!-- Boutons -->
                 <div class="flex justify-between">
-                    <button
-                        type="button"
-                        id="cancel-btn"
-                        class="bg-gray-400 text-black py-2 px-4 rounded hover:bg-gray-500"
-                    >
-                        Annuler
-                    </button>
-                    <button
-                        type="submit"
-                        class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500"
->  Ajouter</button>
+                    <button type="button"id="cancel-btn"class="bg-gray-400 text-black py-2 px-4 rounded hover:bg-gray-500" >Annuler </button>
+                    <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500">  Ajouter</button>
                 </div>
             </form>
         </div>

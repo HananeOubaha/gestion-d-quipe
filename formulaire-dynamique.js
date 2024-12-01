@@ -40,15 +40,18 @@ function updateInputs(position) {
     }
 }
 
-// Ajouter un événement pour la sélection de la position du joueur
+
 playerPositionSelect.addEventListener("change", () => {
     updateInputs(playerPositionSelect.value);
 });
 
+function validateInput(value, regex) {
+    return regex.test(value);
+}
 // Soumettre le formulaire
 playerForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
+    // Vérification des champs
     // Récupérer les valeurs du formulaire
     const name = document.getElementById("player-name").value;
     const nationality = document.getElementById("player-nationality").value;
@@ -56,6 +59,33 @@ playerForm.addEventListener("submit", (e) => {
     const position = document.getElementById('Position').value;
     const club = document.getElementById("player-club").value;
     const rating = document.getElementById("player-rating").value;
+
+    const nameRegex = /^(?!\s*$)[a-zA-Z]{3,}(\s[a-zA-Z]{3,})*$/;
+     const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i;
+     const ratingRegex = /^100$|^\d{1,2}$/; 
+     const attributeRegex = /^100$|^\d{1,2}$/; 
+
+     if (!validateInput(name, nameRegex)) {
+        alert("Nom invalide. Utilisez uniquement des lettres et des espaces.");
+        return;
+    }
+    if (!validateInput(image, urlRegex)) {
+        alert("URL d'image invalide.");
+        return;
+    }
+    if (!validateInput(nationality, urlRegex)) {
+        alert("URL de nationalité invalide.");
+        return;
+    }
+    if (!validateInput(club, urlRegex)) {
+        alert("URL de club invalide.");
+        return;
+    }
+    if (!validateInput(rating, ratingRegex)) {
+        alert("Note invalide. Entrez un nombre entre 0 et 100.");
+        return;
+    }
+
     // Récupérer les statistiques spécifiques à la position
     const pace = position !== "GK" ? document.getElementById("playerPace").value : null;
     const shooting = position !== "GK" ? document.getElementById("playerShooting").value : null;
@@ -71,6 +101,32 @@ playerForm.addEventListener("submit", (e) => {
     const reflexes = position === "GK" ? document.getElementById("playerReflexes").value : null;
     const speed = position === "GK" ? document.getElementById("playerSpeed").value : null;
     const positioning = position === "GK" ? document.getElementById("playerPositioning").value : null;
+
+    if (
+        position !== "GK" &&
+        (!validateInput(pace, attributeRegex) ||
+            !validateInput(shooting, attributeRegex) ||
+            !validateInput(passing, attributeRegex) ||
+            !validateInput(dribbling, attributeRegex) ||
+            !validateInput(defending, attributeRegex) ||
+            !validateInput(physical, attributeRegex))
+    ) {
+        alert("Statistiques invalides. Entrez des nombres entre 0 et 100.");
+        return;
+    }
+
+    if (
+        position === "GK" &&
+        (!validateInput(diving, attributeRegex) ||
+            !validateInput(handling, attributeRegex) ||
+            !validateInput(kicking, attributeRegex) ||
+            !validateInput(reflexes, attributeRegex) ||
+            !validateInput(speed, attributeRegex) ||
+            !validateInput(positioning, attributeRegex))
+    ) {
+        alert("Statistiques invalides pour gardien.");
+        return;
+    }
 
     // Créer une nouvelle carte
     const card = document.createElement("div");
