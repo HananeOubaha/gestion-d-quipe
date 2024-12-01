@@ -21,21 +21,21 @@ cancelBtn.addEventListener("click", () => {
 function updateInputs(position) {
     if (position === "GK") {
         Statistiques.innerHTML = `
-            <div><input type="number" id="playerDiving" placeholder="Diving" name="playerDiving" min="0" max="100" required></div>
-            <div><input type="number" id="playerHandling" placeholder="Handling" name="playerHandling" min="0" max="100" required></div>
-            <div><input type="number" id="playerKicking" placeholder="Kicking" name="playerKicking" min="0" max="100" required></div>
-            <div><input type="number" id="playerReflexes" placeholder="Reflexes" name="playerReflexes" min="0" max="100" required></div>
-            <div><input type="number" id="playerSpeed" placeholder="Speed" name="playerSpeed" min="0" max="100" required></div>
-            <div><input type="number" id="playerPositioning" placeholder="Positioning" name="playerPositioning" min="0" max="100" required></div>
+            <div><input type="text" id="playerDiving" placeholder="Diving" name="playerDiving"class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerHandling" placeholder="Handling" name="playerHandling"class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerKicking" placeholder="Kicking" name="playerKicking" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerReflexes" placeholder="Reflexes" name="playerReflexes" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerSpeed" placeholder="Speed" name="playerSpeed" min="0" class="w-full px-4 py-2 " max="100" ></div>
+            <div><input type="text" id="playerPositioning" placeholder="Positioning" name="playerPositioning" class="w-full px-4 py-2 " min="0" max="100"></div>
         `;
     } else {
         Statistiques.innerHTML = `
-            <div><input type="number" id="playerPace" placeholder="Pace" name="playerPace" min="0" max="100" required></div>
-            <div><input type="number" id="playerShooting" placeholder="Shooting" name="playerShooting" min="0" max="100" required></div>
-            <div><input type="number" id="playerPassing" placeholder="Passing" name="playerPassing" min="0" max="100" required></div>
-            <div><input type="number" id="playerDribbling" placeholder="Dribbling" name="playerDribbling" min="0" max="100" required></div>
-            <div><input type="number" id="playerDefending" placeholder="Defending" name="playerDefending" min="0" max="100" required></div>
-            <div><input type="number" id="playerPhysical" placeholder="Physical" name="playerPhysical" min="0" max="100" required></div>
+            <div><input type="text" id="playerPace" placeholder="Pace" name="playerPace" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerShooting" placeholder="Shooting" name="playerShooting" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerPassing" placeholder="Passing" name="playerPassing" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerDribbling" placeholder="Dribbling" name="playerDribbling" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerDefending" placeholder="Defending" name="playerDefending" class="w-full px-4 py-2 " min="0" max="100" ></div>
+            <div><input type="text" id="playerPhysical" placeholder="Physical" name="playerPhysical" class="w-full px-4 py-2 " min="0" max="100" ></div>
         `;
     }
 }
@@ -81,10 +81,11 @@ playerForm.addEventListener("submit", (e) => {
         alert("URL de club invalide.");
         return;
     }
-    if (!validateInput(rating, ratingRegex)) {
-        alert("Note invalide. Entrez un nombre entre 0 et 100.");
-        return;
-    }
+     // Vérification si les valeurs numériques sont réellement des nombres
+if (isNaN(Number(rating)) || !validateInput(rating, ratingRegex)) {
+    alert("Note invalide. Entrez un nombre entre 0 et 100.");
+    return;
+}
 
     // Récupérer les statistiques spécifiques à la position
     const pace = position !== "GK" ? document.getElementById("playerPace").value : null;
@@ -102,32 +103,49 @@ playerForm.addEventListener("submit", (e) => {
     const speed = position === "GK" ? document.getElementById("playerSpeed").value : null;
     const positioning = position === "GK" ? document.getElementById("playerPositioning").value : null;
 
-    if (
-        position !== "GK" &&
-        (!validateInput(pace, attributeRegex) ||
-            !validateInput(shooting, attributeRegex) ||
-            !validateInput(passing, attributeRegex) ||
-            !validateInput(dribbling, attributeRegex) ||
-            !validateInput(defending, attributeRegex) ||
-            !validateInput(physical, attributeRegex))
-    ) {
-        alert("Statistiques invalides. Entrez des nombres entre 0 et 100.");
-        return;
-    }
+     // Vérification pour les joueurs autres que "GK"
+if (
+    position !== "GK" &&
+    (
+        isNaN(Number(pace)) ||
+        isNaN(Number(shooting)) ||
+        isNaN(Number(passing)) ||
+        isNaN(Number(dribbling)) ||
+        isNaN(Number(defending)) ||
+        isNaN(Number(physical)) ||
+        !validateInput(pace, attributeRegex) ||
+        !validateInput(shooting, attributeRegex) ||
+        !validateInput(passing, attributeRegex) ||
+        !validateInput(dribbling, attributeRegex) ||
+        !validateInput(defending, attributeRegex) ||
+        !validateInput(physical, attributeRegex)
+    )
+) {
+    alert("Statistiques invalides. Entrez des nombres entre 0 et 100.");
+    return;
+}
 
-    if (
-        position === "GK" &&
-        (!validateInput(diving, attributeRegex) ||
-            !validateInput(handling, attributeRegex) ||
-            !validateInput(kicking, attributeRegex) ||
-            !validateInput(reflexes, attributeRegex) ||
-            !validateInput(speed, attributeRegex) ||
-            !validateInput(positioning, attributeRegex))
-    ) {
-        alert("Statistiques invalides pour gardien.");
-        return;
-    }
-
+// Vérification pour le gardien "GK"
+if (
+    position === "GK" &&
+    (
+        isNaN(Number(diving)) ||
+        isNaN(Number(handling)) ||
+        isNaN(Number(kicking)) ||
+        isNaN(Number(reflexes)) ||
+        isNaN(Number(speed)) ||
+        isNaN(Number(positioning)) ||
+        !validateInput(diving, attributeRegex) ||
+        !validateInput(handling, attributeRegex) ||
+        !validateInput(kicking, attributeRegex) ||
+        !validateInput(reflexes, attributeRegex) ||
+        !validateInput(speed, attributeRegex) ||
+        !validateInput(positioning, attributeRegex)
+    )
+) {
+    alert("Statistiques invalides pour gardien.");
+    return;
+}
     // Créer une nouvelle carte
     const card = document.createElement("div");
     card.className =
