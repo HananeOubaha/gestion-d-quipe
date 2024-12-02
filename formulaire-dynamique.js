@@ -2,6 +2,8 @@
 const addPlayerBtn = document.getElementById("add-player-btn");
 const playerModal = document.getElementById("player-modal");
 const cancelBtn = document.getElementById("cancel-btn");
+const addBtn = document.getElementById("add-btn"); // Bouton "Ajouter" dans le modal
+const editBtn = document.getElementById("edit-btn");
 const playerForm = document.getElementById("player-form");
 const cardsContainer = document.getElementById("cards-container");
 const playerPositionSelect = document.getElementById("Position"); 
@@ -13,6 +15,10 @@ let editingCard = null;
 // Ouvrir le modal
 addPlayerBtn.addEventListener("click", () => {
     playerModal.classList.remove("hidden");
+    addBtn.classList.remove("hidden");
+    editBtn.classList.add("hidden");
+    playerForm.reset();
+    Statistiques.innerHTML = "";  // Reset statistiques
 });
 
 // Fermer le modal
@@ -77,7 +83,7 @@ playerForm.addEventListener("submit", (e) => {
         return;
     }
     if (!validateInput(nationality, urlRegex)) {
-        alert("URL de nationalité invalide.");                                                                            
+        alert("URL de nationalité invalide.");                                                                                                                                                          
         return;
     }
     if (!validateInput(club, urlRegex)) {
@@ -187,85 +193,119 @@ if (
     });
     card.addEventListener("click", () => handleCardClick(card));
     cardsContainer.appendChild(card);
-    playerForm.reset();
     playerModal.classList.add("hidden");
-    // Remplir le formulaire avec les informations de la carte
-    document.getElementById("player-name").value = name;
-    document.getElementById("player-nationality").value = nationality;
-    document.getElementById("player-image").value = image;
-    document.getElementById("Position").value = position;
-    document.getElementById("player-club").value = club;
-    document.getElementById("player-rating").value = rating;
+    playerForm.reset();
+     // Réinitialiser le bouton "Ajouter" et masquer "Editer"
+     addBtn.classList.remove("hidden");
+     editBtn.classList.add("hidden");
+     editingCard = null;  // Réinitialiser le mode édition
+ });
 
-    updateInputs(position);
-    if (position === "GK") {
-        document.getElementById("playerDiving").value = diving;
-        document.getElementById("playerHandling").value = handling;
-        document.getElementById("playerKicking").value = kicking;
-        document.getElementById("playerReflexes").value = reflexes;
-        document.getElementById("playerSpeed").value = speed;
-        document.getElementById("playerPositioning").value = positioning;
-    } else {
-        document.getElementById("playerPace").value = pace;
-        document.getElementById("playerShooting").value = shooting;
-        document.getElementById("playerPassing").value = passing;
-        document.getElementById("playerDribbling").value = dribbling;
-        document.getElementById("playerDefending").value = defending;
-        document.getElementById("playerPhysical").value = physical;
-    }
-});
-
-function handleCardClick(card) {
-    if (card.querySelector(".action-container")) return;
-    const actionContainer = document.createElement("div");
-    actionContainer.className = "action-container absolute bg-white text-black rounded p-2 mt-2 shadow-lg flex gap-2";
-    const activateButton = document.createElement("button");
-    activateButton.textContent = "Activer";
-    activateButton.className = "bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600";
-    const deactivateButton = document.createElement("button");
-    deactivateButton.textContent = "Désactiver";
-    deactivateButton.className = "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600";
-     // Bouton édit
+//  Fonction pour gérer le clic sur une carte pour afficher les actions
+ function handleCardClick(card) {
+     // Préparer les informations dans le formulaire pour modification
+     const name = card.querySelector(".text-black.font-bold.text-sm").textContent;
+     const rating = card.querySelector(".absolute.top-3.left-3").textContent;
+     const position = card.dataset.position;
+     const nationality = card.querySelector("img[alt='Nationalité']").src;
+     const club = card.querySelector("img[alt='Club']").src;
+     const image = card.querySelector("img[alt='" + name + "']").src;
+ 
+     // Remplir le formulaire avec les informations du joueur
+     document.getElementById("player-name").value = name;
+     document.getElementById("player-rating").value = rating;
+     document.getElementById("Position").value = position;
+     document.getElementById("player-nationality").value = nationality;
+     document.getElementById("player-club").value = club;
+     document.getElementById("player-image").value = image;
+ 
+     updateInputs(position);
+ 
+     // Masquer le bouton "Ajouter" et afficher "Éditer"
+     addBtn.classList.add("hidden");
+     editBtn.classList.remove("hidden");
+ 
+     // Enregistrer la carte en mode édition
+     editingCard = card;
+ 
+     // Ajouter les boutons d'actions si pas déjà présents
+     if (card.querySelector(".action-container")) return;
+ 
+     const actionContainer = document.createElement("div");
+     actionContainer.className = "action-container absolute bg-white text-black rounded p-2 mt-2 shadow-lg flex gap-2";
+     
+     // Boutons "Activer", "Désactiver" et "Éditer"
+     const activateButton = document.createElement("button");
+     activateButton.textContent = "Activer";
+     activateButton.className = "bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600";
+ 
+     const deactivateButton = document.createElement("button");
+     deactivateButton.textContent = "Désactiver";
+     deactivateButton.className = "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600";
+ 
      const editButton = document.createElement("button");
-     editButton.textContent = "edit";
-     editButton.className = "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600";
-    actionContainer.appendChild(activateButton);
-    actionContainer.appendChild(deactivateButton);
-    actionContainer.appendChild(editButton);
-    card.appendChild(actionContainer);
-    activateButton.addEventListener("click", () => {
-        const playerPosition = card.dataset.position; 
-        const targetPosition = document.getElementById(playerPosition); 
-
-        if (targetPosition) {
-            targetPosition.innerHTML = ""; 
-            targetPosition.appendChild(card);
-            actionContainer.remove();
-        } else {
-            alert("Position non trouvée sur le terrain !");
-        }
-    });
-
-    deactivateButton.addEventListener("click", () => {
-        cardsContainer.appendChild(card);
-        actionContainer.remove();
-    });
- // Éditer la carte
- editButton.addEventListener("click", () => {
-    editingCard = card;
-    playerModal.classList.remove("hidden");
-
-    if (!editingCard) {
-        cardsContainer.appendChild(card);
-    }
-});
-    document.addEventListener(
-        "click",
-        (e) => {
-            if (!card.contains(e.target)) {
-                actionContainer.remove();
-            }
-        },
-        { once: true }
-    );
-}
+     editButton.textContent = "Éditer";
+     editButton.className = "bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600";
+ 
+     // Ajout des boutons à l'actionContainer
+     actionContainer.appendChild(activateButton);
+     actionContainer.appendChild(deactivateButton);
+     actionContainer.appendChild(editButton);
+     
+     // Ajouter l'actionContainer à la carte
+     card.appendChild(actionContainer);
+ 
+     // Fonction pour activer la carte
+     activateButton.addEventListener("click", () => {
+         const playerPosition = card.dataset.position;
+         const targetPosition = document.getElementById(playerPosition);
+ 
+         if (targetPosition) {
+             targetPosition.innerHTML = "";
+             targetPosition.appendChild(card);
+             actionContainer.remove();
+         } else {
+             alert("Position non trouvée sur le terrain !");
+         }
+     });
+ 
+     // Fonction pour désactiver la carte
+     deactivateButton.addEventListener("click", () => {
+         cardsContainer.appendChild(card);
+         actionContainer.remove();
+     });
+ 
+     // Fonction pour éditer la carte (afficher le modal uniquement lors du clic sur le bouton "Éditer")
+     editButton.addEventListener("click", () => {
+         // Remplir le formulaire avec les informations de la carte
+         document.getElementById("player-name").value = name;
+         document.getElementById("player-rating").value = rating;
+         document.getElementById("Position").value = position;
+         document.getElementById("player-nationality").value = nationality;
+         document.getElementById("player-club").value = club;
+         document.getElementById("player-image").value = image;
+ 
+         updateInputs(position);
+ 
+         // Masquer le bouton "Ajouter" et afficher "Éditer"
+         addBtn.classList.add("hidden");
+         editBtn.classList.remove("hidden");
+ 
+         // Enregistrer la carte en mode édition
+         editingCard = card;
+ 
+         // Afficher le modal uniquement ici, lorsque le bouton "Éditer" est cliqué
+         playerModal.classList.remove("hidden");
+     });
+ 
+     // Supprimer les actions lorsque le clic est en dehors de la carte
+     document.addEventListener(
+         "click",
+         (e) => {
+             if (!card.contains(e.target)) {
+                 actionContainer.remove();
+             }
+         },
+         { once: true }
+     );
+ }
