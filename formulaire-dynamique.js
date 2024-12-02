@@ -77,7 +77,7 @@ playerForm.addEventListener("submit", (e) => {
         return;
     }
     if (!validateInput(nationality, urlRegex)) {
-        alert("URL de nationalité invalide.");
+        alert("URL de nationalité invalide.");                                                                            
         return;
     }
     if (!validateInput(club, urlRegex)) {
