@@ -7,6 +7,9 @@ const cardsContainer = document.getElementById("cards-container");
 const playerPositionSelect = document.getElementById("Position"); 
 const Statistiques = document.querySelector(".statistiques"); 
 
+// Variables pour suivre le joueur à éditer
+let editingCard = null;
+
 // Ouvrir le modal
 addPlayerBtn.addEventListener("click", () => {
     playerModal.classList.remove("hidden");
@@ -147,9 +150,8 @@ if (
     return;
 }
     // Créer une nouvelle carte
-    const card = document.createElement("div");
-    card.className =
-        "card rounded-lg shadow-lg p-4 flex flex-col items-center relative cursor-pointer";
+    const card = editingCard || document.createElement("div");
+    card.className = "card rounded-lg shadow-lg p-4 flex flex-col items-center relative cursor-pointer";
     card.dataset.position = position; 
     card.innerHTML = `
           <div class="absolute top-3 left-3 text-black font-bold text-xl">${rating}</div>
@@ -187,6 +189,30 @@ if (
     cardsContainer.appendChild(card);
     playerForm.reset();
     playerModal.classList.add("hidden");
+    // Remplir le formulaire avec les informations de la carte
+    document.getElementById("player-name").value = name;
+    document.getElementById("player-nationality").value = nationality;
+    document.getElementById("player-image").value = image;
+    document.getElementById("Position").value = position;
+    document.getElementById("player-club").value = club;
+    document.getElementById("player-rating").value = rating;
+
+    updateInputs(position);
+    if (position === "GK") {
+        document.getElementById("playerDiving").value = diving;
+        document.getElementById("playerHandling").value = handling;
+        document.getElementById("playerKicking").value = kicking;
+        document.getElementById("playerReflexes").value = reflexes;
+        document.getElementById("playerSpeed").value = speed;
+        document.getElementById("playerPositioning").value = positioning;
+    } else {
+        document.getElementById("playerPace").value = pace;
+        document.getElementById("playerShooting").value = shooting;
+        document.getElementById("playerPassing").value = passing;
+        document.getElementById("playerDribbling").value = dribbling;
+        document.getElementById("playerDefending").value = defending;
+        document.getElementById("playerPhysical").value = physical;
+    }
 });
 
 function handleCardClick(card) {
@@ -199,8 +225,13 @@ function handleCardClick(card) {
     const deactivateButton = document.createElement("button");
     deactivateButton.textContent = "Désactiver";
     deactivateButton.className = "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600";
+     // Bouton édit
+     const editButton = document.createElement("button");
+     editButton.textContent = "edit";
+     editButton.className = "bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600";
     actionContainer.appendChild(activateButton);
     actionContainer.appendChild(deactivateButton);
+    actionContainer.appendChild(editButton);
     card.appendChild(actionContainer);
     activateButton.addEventListener("click", () => {
         const playerPosition = card.dataset.position; 
@@ -219,7 +250,15 @@ function handleCardClick(card) {
         cardsContainer.appendChild(card);
         actionContainer.remove();
     });
+ // Éditer la carte
+ editButton.addEventListener("click", () => {
+    editingCard = card;
+    playerModal.classList.remove("hidden");
 
+    if (!editingCard) {
+        cardsContainer.appendChild(card);
+    }
+});
     document.addEventListener(
         "click",
         (e) => {
