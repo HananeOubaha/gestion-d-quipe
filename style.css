@@ -19,3 +19,24 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+@media (max-width: 1024px) {
+    .card {
+        width:18%; /* Réduit légèrement la largeur sur les très petits écrans */
+        height:150px;
+      
+    }
+    #navBar{
+        display: none;
+    }
+    #cartAfficher{
+        width:20%;
+        height:150px;
+    }
+}
+
+/* #cards-container{
+    padding-left:350px;
+    width: 200px;
+    height: 200px;
+} */

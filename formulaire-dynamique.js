@@ -160,7 +160,7 @@ if (
     card.className = "card rounded-lg shadow-lg p-4 flex flex-col items-center relative cursor-pointer";
     card.dataset.position = position; 
     card.innerHTML = `
-          <div class="absolute top-3 left-3 text-white font-bold text-xl">${rating}</div>
+          <div  class="absolute top-3 left-3 text-white font-bold text-xl">${rating}</div>
            <div class="absolute top-3 right-3 text-white font-bold text-lg">${position}</div>
            <img src=${image} alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
            <div class="text-white font-bold text-sm mt-4">${name}</div>
