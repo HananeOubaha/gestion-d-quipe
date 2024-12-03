@@ -160,12 +160,12 @@ if (
     card.className = "card rounded-lg shadow-lg p-4 flex flex-col items-center relative cursor-pointer";
     card.dataset.position = position; 
     card.innerHTML = `
-          <div class="absolute top-3 left-3 text-black font-bold text-xl">${rating}</div>
-           <div class="absolute top-3 right-3 text-black font-bold text-lg">${position}</div>
+          <div class="absolute top-3 left-3 text-white font-bold text-xl">${rating}</div>
+           <div class="absolute top-3 right-3 text-white font-bold text-lg">${position}</div>
            <img src=${image} alt="${name}" class="w-24 h-24 rounded-full border-2 border-white mt-10"/>
-           <div class="text-black font-bold text-sm mt-4">${name}</div>
+           <div class="text-white font-bold text-sm mt-4">${name}</div>
            ${position === "GK" ? `
-             <div class="flex gap-x-1 mt-4 text-black text-sm font-bold">
+             <div class="flex gap-x-1 mt-4 text-white text-sm font-bold">
             <div>DIV <span class="font-normal">${diving}</span></div>
             <div>HAN <span class="font-normal">${handling}</span></div>
             <div>KIC <span class="font-normal">${kicking}</span></div>
@@ -173,7 +173,7 @@ if (
             <div>SPD <span class="font-normal">${speed}</span></div>
             <div>POS <span class="font-normal">${positioning}</span></div>
         </div>` : `
-             <div class="flex gap-x-1 mt-4 text-black text-sm font-bold">
+             <div class="flex gap-x-1 mt-4 text-white text-sm font-bold">
             ${pace ? `<div>PAC <span class="font-normal">${pace}</span></div>` : ""}
             ${shooting ? `<div>SHO <span class="font-normal">${shooting}</span></div>` : ""}
             ${passing ? `<div>PAS <span class="font-normal">${passing}</span></div>` : ""}
@@ -204,7 +204,7 @@ if (
 //  Fonction pour gérer le clic sur une carte pour afficher les actions
  function handleCardClick(card) {
      // Préparer les informations dans le formulaire pour modification
-     const name = card.querySelector(".text-black.font-bold.text-sm").textContent;
+     const name = card.querySelector(".text-white.font-bold.text-sm").textContent;
      const rating = card.querySelector(".absolute.top-3.left-3").textContent;
      const position = card.dataset.position;
      const nationality = card.querySelector("img[alt='Nationalité']").src;
@@ -232,7 +232,7 @@ if (
      if (card.querySelector(".action-container")) return;
  
      const actionContainer = document.createElement("div");
-     actionContainer.className = "action-container absolute bg-white text-black rounded p-2 mt-2 shadow-lg flex gap-2";
+     actionContainer.className = "action-container absolute bg-white text-white rounded p-2 mt-2 shadow-lg flex gap-2";
      
      // Boutons "Activer", "Désactiver" et "Éditer"
      const activateButton = document.createElement("button");
