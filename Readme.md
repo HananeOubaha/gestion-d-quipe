@@ -1,7 +1,7 @@
 # **FUT Team Builder**
 
 ### **Description**  
-**FUT Team Builder** est une application web interactive qui permet aux utilisateurs de construire leur équipe FUT (Ultimate Team) en ajoutant, positionnant et modifiant les joueurs. L'application met l'accent sur une expérience utilisateur fluide, respectant les formations tactiques comme le 4-4-2 et le 4-3-3, avec une gestion des données via `localStorage` et une interface responsive.
+**FUT Team Builder** est une application web interactive qui permet aux utilisateurs de construire leur équipe FUT (Ultimate Team) en ajoutant, positionnant et modifiant les joueurs. L'application met l'accent sur une expérience utilisateur fluide, respectant les formations tactiques comme le 4-3-3, avec une interface responsive.
 
 ---
 
